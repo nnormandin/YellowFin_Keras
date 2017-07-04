@@ -20,6 +20,7 @@ from keras.layers import Conv2D, MaxPooling2D
 sys.path.append('../')
 from yellowfin import YFOptimizer
 
+
 batch_size = 32
 num_classes = 10
 epochs = 200
@@ -78,6 +79,10 @@ x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
 x_train /= 255
 x_test /= 255
+
+# subsamples for quick test
+#x_train2 = x_train[0:2000, :,:,:]
+#y_train2 = y_train[0:2000, :]
 
 if not data_augmentation:
     print('Not using data augmentation.')
