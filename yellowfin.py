@@ -1,7 +1,7 @@
 import numpy as np
 from math import ceil, floor
 import tensorflow as tf
-from tensorflow.python.training import momentum
+from tensorflow.python.training.momentum import MomentumOptimizer
 from tensorflow.python.ops import variable_scope
 from tensorflow.python.ops import variables
 from tensorflow.python.framework import ops
@@ -200,7 +200,6 @@ class YFOptimizer(object):
 
   def apply_gradients(self, grads_tvars, global_step):
     self._grads, self._tvars = zip(*grads_tvars)
-
     with tf.variable_scope("apply_updates"):
       if self._clip_thresh_var is not None:
         self._grads_clip, self._grads_norm = tf.clip_by_global_norm(self._grads, self._clip_thresh_var)
@@ -219,7 +218,7 @@ class YFOptimizer(object):
         update_hyper_op = self.update_hyper_param()
 
     with tf.control_dependencies([update_hyper_op] ):
-      self._increment_global_step_op = tf.assign(self._global_step, self._global_step + 1)
+      self._increment_global_step_op = tf.assign(self._global_step, tf.cast(global_step, tf.int32))
 
     return tf.group(apply_grad_op, after_apply_op, update_hyper_op, self._increment_global_step_op)
 
@@ -233,7 +232,7 @@ class YFOptimizer(object):
         colocate_gradients_with_ops=colocate_gradients_with_ops,
         grad_loss=grad_loss))
 
-	   
+       
   def minimize(self, loss, global_step=None, var_list=None,
                gate_gradients=GATE_OP, aggregation_method=None,
                colocate_gradients_with_ops=False, name=None,
