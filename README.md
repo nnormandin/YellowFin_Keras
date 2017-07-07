@@ -2,6 +2,8 @@
 
 I made some modifications to the TensorFlow implementation of the [YellowFin](https://github.com/JianGoForIt/YellowFin) optimizer introduced by Jian Zhang, Ioannis Mitliagkas, and Christopher Ré in the paper [YellowFin and the Art of Momentum Tuning](https://arxiv.org/abs/1706.03471).
 
+**My notes on the YellowFin paper and this script are [here](http://nnormandin.com/science/2017/07/01/yellowfin.html) on my website. Additional test examples coming soon**
+
 The YellowFin version here can now be used in keras through the `TFOptimizer()` function. For example:
 
 ```python
