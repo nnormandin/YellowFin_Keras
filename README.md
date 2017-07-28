@@ -14,7 +14,7 @@ from keras.optimizers import TFOptimizer
 opt = TFOptimizer(YFOptimizer())
 
 # compile a classification model
-model.compoile(loss = 'categorical_crossentropy',
+model.compile(loss = 'categorical_crossentropy',
                metrics = ['acc'],
                optimizer = opt)
 ```
